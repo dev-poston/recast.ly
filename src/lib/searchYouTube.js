@@ -1,11 +1,11 @@
 import apiKey from '../config/youtube.js';
 
-var searchYouTube = ({query, max = 5}, callback) => {
+var searchYouTube = ({key, max = 5, query}, callback) => {
   $.ajax({
     type: 'GET',
     url: 'https://www.googleapis.com/youtube/v3/search',
     data: {
-      key: apiKey,
+      key: key,
       q: query,
       part: 'snippet',
       maxResults: max,
@@ -13,6 +13,7 @@ var searchYouTube = ({query, max = 5}, callback) => {
       videoEmbeddable: true,
     },
     success: function(data) {
+      console.log(data);
       callback(data);
     },
     error: function(response) {
