@@ -4,6 +4,7 @@ import VideoPlayer from './VideoPlayer.js';
 import searchYouTube from '../lib/searchYouTube.js';
 import VideoListEntry from './VideoListEntry.js';
 import apiKey from '../config/youtube.js';
+import Search from './Search.js';
 
 
 class App extends React.Component {
@@ -11,8 +12,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videoList: exampleVideoData,
-      currentVideo: exampleVideoData[0]
+      videoList: [],
+      currentVideo: {snippet: {title: '', description: ''}, id: {videoId: ''}}
     };
     this.getYouTubeVideos = this.getYouTubeVideos.bind(this);
   }
@@ -24,7 +25,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getYouTubeVideos('cats', 10);
+    this.getYouTubeVideos('cat', 5);
   }
 
   getYouTubeVideos(searchQuery, maxSearch) {
@@ -37,12 +38,14 @@ class App extends React.Component {
     ));
   }
 
+
+
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em></h5></div>
+            <div><h5><em><Search search={this.getYouTubeVideos}/> </em></h5></div>
           </div>
         </nav>
         <div className="row">
